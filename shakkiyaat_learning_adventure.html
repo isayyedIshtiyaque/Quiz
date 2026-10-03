@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Namaaz Learning Adventure</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f7fb;color:#1f2937}
+  .app{max-width:1050px;margin:auto;padding:20px}
+  header{background:linear-gradient(135deg,#243b53,#486581);color:white;border-radius:20px;padding:28px;margin-bottom:18px}
+  header h1{margin:0 0 8px;font-size:30px}
+  header p{margin:0;opacity:.9}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  button{border:0;border-radius:12px;padding:11px 16px;font-size:15px;cursor:pointer;background:#e5e7eb;color:#111827}
+  button:hover{filter:brightness(.97)}
+  .tab.active{background:#243b53;color:white}
+  .panel{display:none}
+  .panel.active{display:block}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+  .card{background:white;border-radius:16px;padding:18px;box-shadow:0 3px 12px rgba(0,0,0,.07)}
+  .card h3{margin-top:0;color:#243b53}
+  .badge{display:inline-block;background:#e8eef5;color:#243b53;padding:5px 9px;border-radius:20px;font-size:12px;font-weight:bold}
+  .highlight{background:#fff7d6;border-left:5px solid #e0a800;padding:13px;border-radius:10px;margin:12px 0}
+  .green{background:#eaf7ef;border-left:5px solid #29935b}
+  .red{background:#fff0f0;border-left:5px solid #d9534f}
+  .sequence{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .step{background:#eef2ff;border:1px solid #c7d2fe;padding:10px 13px;border-radius:10px}
+  .flashcard{min-height:190px;display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer}
+  .flashcard .back{display:none}
+  .flashcard.flipped .front{display:none}
+  .flashcard.flipped .back{display:block}
+  .quiz-q{font-size:19px;font-weight:bold;margin-bottom:15px}
+  .option{display:block;width:100%;text-align:left;margin:8px 0;background:#f3f4f6}
+  .option.correct{background:#d1fae5;border:2px solid #10b981}
+  .option.wrong{background:#fee2e2;border:2px solid #ef4444}
+  .feedback{margin-top:12px;font-weight:bold}
+  .progress{height:10px;background:#e5e7eb;border-radius:10px;overflow:hidden;margin:12px 0 20px}
+  .progress span{display:block;height:100%;width:0;background:#486581;transition:.3s}
+  .score{font-size:22px;font-weight:bold;text-align:center;padding:20px}
+  ul{line-height:1.7}
+  .small{font-size:13px;color:#6b7280}
+  .note{font-size:14px;background:#f8fafc;padding:12px;border-radius:10px}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <h1>🕌 Namaaz Learning Adventure</h1>
+  <p>Learn Shakkiyaat, Namaaz-e-Ehtiyaat and Sajdah-e-Sahw — then test yourself!</p>
+</header>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('learn',this)">📚 Learn</button>
+  <button class="tab" onclick="showTab('cards',this)">🃏 Flashcards</button>
+  <button class="tab" onclick="showTab('quiz',this)">🎯 Quiz</button>
+  <button class="tab" onclick="showTab('challenge',this)">🏆 Challenge</button>
+</div>
+
+<section id="learn" class="panel active">
+  <div class="grid">
+    <div class="card">
+      <span class="badge">2. SHAKKIYAAT</span>
+      <h3>23 Types of Doubts</h3>
+      <p>Namaaz mein 23 tarah ke doubts (Shak) ho sakte hain.</p>
+      <div class="sequence">
+        <div class="step">8 ❌ Namaaz Baatil</div>
+        <div class="step">6 ℹ️ Ignore</div>
+        <div class="step">9 ✅ Valid</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>❌ 8 Shak — Namaaz Baatil</h3>
+      <ul>
+        <li>2 ya 3 Rakat wali Wajib Namaaz mein Rakats ki tadaad par shak.</li>
+        <li>Musafir ki Namaaz mein Rakats ki tadaad par shak.</li>
+        <li>Aur woh Shak jo Namaaz ko baatil karte hain.</li>
+      </ul>
+      <div class="highlight red">🧠 Yaad rakhein: Kuch Shak ki wajah se Namaaz dobara padhni padti hai.</div>
+    </div>
+
+    <div class="card">
+      <h3>ℹ️ 6 Shak — Ignore kiye ja sakte hain</h3>
+      <ul>
+        <li>Aise amal ke baare mein shak jiska waqt guzar chuka ho.</li>
+        <li>Salaam complete karne ke baad shak.</li>
+        <li>Namaaz ka waqt guzarne ke baad shak.</li>
+        <li>Mustahab Namaaz mein shak.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>✅ 9 Shak — Valid Shak</h3>
+      <p>Ye 4 Rakat wali Namaaz mein Rakats ki tadaad ke doubts hain.</p>
+      <p>Pehle ruk kar sochiye. Agar kisi taraf zyada probability ho to uske mutabiq amal karein. Agar shak baqi rahe to rules ke mutabiq amal karein.</p>
+      <div class="highlight green">Example: 2 ya 3 Rakat ka shak → 3 Rakat maan kar Namaaz complete karein + 1 Rakat Namaaz-e-Ehtiyaat.</div>
+    </div>
+
+    <div class="card">
+      <span class="badge">3. NAMAAZ-E-EHTIYAAT</span>
+      <h3>Precautionary Namaaz</h3>
+      <p>Rakats ki tadaad ke shak ko compensate karne ke liye Namaaz-e-Ehtiyaat padhi jaati hai.</p>
+      <div class="sequence">
+        <div class="step">1️⃣ Niyyat</div>
+        <div class="step">2️⃣ Takbeer</div>
+        <div class="step">3️⃣ Surah al-Hamd</div>
+        <div class="step">4️⃣ Ruku</div>
+        <div class="step">5️⃣ 2 Sajdahs</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🕐 1 Rakat Namaaz-e-Ehtiyaat</h3>
+      <ul>
+        <li>Asal Namaaz ke Salaam ke foran baad Niyyat.</li>
+        <li>Takbeer → Surah al-Hamd → Ruku → 2 Sajdahs.</li>
+        <li>Phir Tashahhud aur Salaam.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>🕑 2 Rakat Namaaz-e-Ehtiyaat</h3>
+      <ul>
+        <li>Pehli Rakat ki tarah doosri Rakat ada karein.</li>
+        <li>Doosri Rakat ke baad Tashahhud aur Salaam.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>🚫 Ismein kya nahi hota?</h3>
+      <ul>
+        <li>Azaan nahi.</li>
+        <li>Iqaamah nahi.</li>
+        <li>Doosri Surah nahi.</li>
+        <li>Qunoot nahi.</li>
+        <li>Niyyat buland awaaz se nahi.</li>
+        <li>Surah al-Hamd ahista padhna chahiye.</li>
+      </ul>
+      <div class="note">Mustahab Ihtiyaat: Bismillah bhi bahut ahista padhi jaye.</div>
+    </div>
+
+    <div class="card">
+      <span class="badge">4. SAJDAH-E-SAHW</span>
+      <h3>Bhool ka Sajdah</h3>
+      <p>Namaaz mein kuch khaas bhool ya galti hone par Salaam ke baad 2 Sajdah-e-Sahw kiye jaate hain.</p>
+      <div class="highlight">📌 Tashahhud bhool jaana → 2 Sajdah-e-Sahw.</div>
+    </div>
+
+    <div class="card">
+      <h3>🔢 4, 5 ya 6 Rakats ka Shak</h3>
+      <p>4 Rakat Namaaz mein doosri Sajdah ke baad shak ho:</p>
+      <ul>
+        <li>4 ya 5 Rakats?</li>
+        <li>4 ya 6 Rakats?</li>
+      </ul>
+      <div class="highlight">➡️ 2 Sajdah-e-Sahw zaroori hai.</div>
+    </div>
+
+    <div class="card">
+      <h3>⚠️ Ihtiyate Wajib — Sajdah-e-Sahw</h3>
+      <ul>
+        <li>Namaaz mein koi cheez galti se kam ya zyada ho aur Namaaz valid ho.</li>
+        <li>Namaaz mein galti se baat karna.</li>
+        <li>Galat waqt Salaam keh dena.</li>
+      </ul>
+      <p class="small">Example: Pehli Rakat mein galti se Salaam keh dena.</p>
+    </div>
+
+    <div class="card">
+      <h3>⭐ Mustahab Ihtiyaat</h3>
+      <ul>
+        <li>Ek Sajdah bhool jaana.</li>
+        <li>Jahan khade hona tha wahan galti se baith jaana.</li>
+        <li>Jahan baithna tha wahan galti se khade ho jaana.</li>
+      </ul>
+      <div class="note">In cases mein 2 Sajdah-e-Sahw karna Mustahab Ihtiyaat hai.</div>
+    </div>
+
+    <div class="card">
+      <h3>🧎 Sajdah-e-Sahw ka Tareeqa</h3>
+      <div class="sequence">
+        <div class="step">1️⃣ Salaam</div>
+        <div class="step">2️⃣ Niyyat</div>
+        <div class="step">3️⃣ Sajdah + Zikr</div>
+        <div class="step">4️⃣ Baithna</div>
+        <div class="step">5️⃣ Sajdah + Zikr</div>
+        <div class="step">6️⃣ Tashahhud</div>
+        <div class="step">7️⃣ Salaam</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📝 Sajdah-e-Sahw ka Zikr</h3>
+      <p style="font-size:20px;line-height:1.9;text-align:center">
+        بِسْمِ اللهِ وَبِاللهِ، اَلسَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ
+      </p>
+      <p class="small" style="text-align:center">Bismillahi wa billah, assalaamu alaika ayyuhan-nabiyyu wa rahmatullahi wa barakaatuh.</p>
+    </div>
+
+    <div class="card">
+      <h3>📌 Sajdah-e-Sahw — Important Notes</h3>
+      <ul>
+        <li>Qiblah ki taraf rukh hona chahiye.</li>
+        <li>Wuzu mein hona chahiye.</li>
+        <li>Peshani aisi cheez par ho jis par Sajdah jaaiz ho.</li>
+        <li>Saare 7 parts ka zameen par hona zaroori nahi.</li>
+        <li>Ihtiyaat ki bina par 7 parts ko zameen se touch karna chahiye.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="cards" class="panel">
+  <div class="card">
+    <h2>🃏 Tap a card to reveal the answer</h2>
+    <p class="small">Try answering in your head first.</p>
+  </div>
+  <div class="grid" id="flashcards"></div>
+</section>
+
+<section id="quiz" class="panel">
+  <div class="card">
+    <h2>🎯 Student Quiz</h2>
+    <p id="quizInfo"></p>
+    <div class="progress"><span id="bar"></span></div>
+    <div id="quizBox"></div>
+  </div>
+</section>
+
+<section id="challenge" class="panel">
+  <div class="card">
+    <h2>🏆 60-Second Challenge</h2>
+    <p>Kitne important numbers yaad hain?</p>
+    <div class="grid">
+      <div class="card"><h3>Shakkiyaat</h3><p><b>23 Shak</b> → 8 Baatil + 6 Ignore + 9 Valid</p></div>
+      <div class="card"><h3>Valid Shak</h3><p><b>4 Rakat Namaaz</b> → Rakats ki tadaad</p></div>
+      <div class="card"><h3>Namaaz-e-Ehtiyaat</h3><p><b>1 ya 2 Rakat</b> → Shak ke mutabiq</p></div>
+      <div class="card"><h3>Sajdah-e-Sahw</h3><p><b>2 Sajde</b> → Salaam ke baad</p></div>
+      <div class="card"><h3>4/5 ya 4/6</h3><p><b>2 Sajdah-e-Sahw</b> → Doosri Sajdah ke baad</p></div>
+    </div>
+    <button onclick="startQuiz()">🔄 Start Quiz</button>
+  </div>
+</section>
+</div>
+
+<script>
+const cards = [
+ ["Shakkiyaat","Namaaz mein kitne types ke Shak hain?","23 types: 8 Namaaz ko baatil karte hain, 6 ignore kiye ja sakte hain, aur 9 valid Shak hain."],
+ ["8 Shak","Inka kya hukm hai?","Ye Shak Namaaz ko baatil kar dete hain."],
+ ["6 Shak","Inka kya hukm hai?","In Shak ko ignore kiya ja sakta hai."],
+ ["9 Shak","Ye kahan hote hain?","4 Rakat wali Namaaz mein Rakats ki tadaad ke baare mein."],
+ ["2 ya 3 Rakats","4 Rakat Namaaz mein doosri Sajdah ke baad shak?","3 Rakats maan kar Namaaz complete karein aur 1 Rakat Namaaz-e-Ehtiyaat padhein."],
+ ["Namaaz-e-Ehtiyaat","Kab padhi jaati hai?","Rakats ki tadaad ke shak ko compensate karne ke liye."],
+ ["1 Rakat","Namaaz-e-Ehtiyaat ka end kaise?","2 Sajdahs ke baad Tashahhud aur Salaam."],
+ ["2 Rakats","Namaaz-e-Ehtiyaat ka end kaise?","Doosri Rakat ke baad Tashahhud aur Salaam."],
+ ["Ehtiyaat","Namaaz-e-Ehtiyaat mein kya nahi hota?","Azaan, Iqaamah, doosri Surah aur Qunoot nahi."],
+ ["Sajdah-e-Sahw","Kab hota hai?","Kuch khaas bhool ya galti hone par Salaam ke baad 2 Sajde."],
+ ["Tashahhud","Tashahhud bhool jaane par?","2 Sajdah-e-Sahw karna zaroori hai."],
+ ["4, 5 ya 6","4 Rakat Namaaz mein doosri Sajdah ke baad 4/5 ya 4/6 ka shak?","2 Sajdah-e-Sahw zaroori hai."],
+ ["Galti se baat","Namaaz mein galti se baat karne par?","Ihtiyate Wajib ki bina par Sajdah-e-Sahw."],
+ ["Galat Salaam","Galat waqt Salaam kehne par?","Ihtiyate Wajib ki bina par Sajdah-e-Sahw."],
+ ["Sajdah-e-Sahw","Basic sequence kya hai?","Niyyat → Sajdah → Baithna → Sajdah → Tashahhud → Salaam."],
+ ["Important","Sajdah-e-Sahw ke waqt kya zaroori hai?","Qiblah, Wuzu aur Peshani ka jaaiz Sajdah ki jagah par hona."]
+];
+
+const quiz = [
+ {q:"Namaaz mein kitne types ke Shak hote hain?",o:["9","15","23","30"],a:2},
+ {q:"Kitne Shak Namaaz ko baatil kar dete hain?",o:["6","8","9","23"],a:1},
+ {q:"Kitne Shak ignore kiye ja sakte hain?",o:["6","8","9","12"],a:0},
+ {q:"Kitne Shak valid hain?",o:["6","8","9","23"],a:2},
+ {q:"Valid Shak kis Namaaz mein Rakats ki tadaad se related hain?",o:["2 Rakat","3 Rakat","4 Rakat","Witr"],a:2},
+ {q:"4 Rakat Namaaz mein 2 ya 3 ka shak ho to kya karein?",o:["2 maan kar ruk jaayein","3 maan kar Namaaz complete karein aur 1 Rakat Namaaz-e-Ehtiyaat padhein","Namaaz turant tod dein","4 maan lein"],a:1},
+ {q:"Namaaz-e-Ehtiyaat mein doosri Surah hoti hai?",o:["Haan","Nahi","Sirf 2 Rakat mein","Sirf Witr mein"],a:1},
+ {q:"Namaaz-e-Ehtiyaat mein Qunoot hota hai?",o:["Haan","Nahi","Sirf pehli Rakat mein","Kabhi-kabhi"],a:1},
+ {q:"Tashahhud bhool jaane par kya karna hota hai?",o:["Kuch nahi","1 Sajdah","2 Sajdah-e-Sahw","Namaaz-e-Ehtiyaat"],a:2},
+ {q:"4 Rakat Namaaz mein doosri Sajdah ke baad 4 ya 5 ka shak ho to?",o:["Namaaz baatil","Namaaz-e-Ehtiyaat","2 Sajdah-e-Sahw","Kuch nahi"],a:2},
+ {q:"Namaaz mein galti se baat karne par?",o:["Ihtiyate Wajib ki bina par Sajdah-e-Sahw","Kuch nahi","Namaaz-e-Ehtiyaat","Azaan"],a:0},
+ {q:"Sajdah-e-Sahw ke waqt Qiblah ki taraf rukh hona chahiye?",o:["Haan","Nahi","Sirf 1 Sajdah mein","Sirf agar Imam ho"],a:0},
+ {q:"Sajdah-e-Sahw ke waqt Wuzu?",o:["Zaroori hai","Zaroori nahi","Sirf Mustahab","Sirf Jamat mein"],a:0},
+ {q:"Sajdah-e-Sahw ka basic sequence kya hai?",o:["Niyyat → 2 Sajdah → Tashahhud → Salaam","Azaan → Ruku → Salaam","Qunoot → Ruku → Tashahhud","Takbeer → Azaan → Sajdah"],a:0}
+];
+
+function showTab(id,btn){
+ document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+ document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ btn.classList.add('active');
+ if(id==='cards') renderCards();
+ if(id==='quiz' && !quizStarted) startQuiz();
+}
+function renderCards(){
+ const box=document.getElementById('flashcards');
+ box.innerHTML='';
+ cards.forEach(c=>{
+   const el=document.createElement('div');
+   el.className='card flashcard';
+   el.innerHTML=`<div class="front"><span class="badge">${c[0]}</span><h3>${c[1]}</h3><p class="small">Tap to reveal</p></div>
+   <div class="back"><span class="badge">${c[0]}</span><h3>Answer</h3><p>${c[2]}</p><p class="small">Tap to flip back</p></div>`;
+   el.onclick=()=>el.classList.toggle('flipped');
+   box.appendChild(el);
+ });
+}
+let qi=0,score=0,answered=false,quizStarted=false;
+function startQuiz(){
+ qi=0;score=0;answered=false;quizStarted=true;renderQuestion();
+}
+function renderQuestion(){
+ const q=quiz[qi];
+ document.getElementById('quizInfo').textContent=`Question ${qi+1} of ${quiz.length} • Score: ${score}`;
+ document.getElementById('bar').style.width=((qi)/quiz.length*100)+'%';
+ const box=document.getElementById('quizBox');
+ box.innerHTML=`<div class="quiz-q">${q.q}</div>`;
+ q.o.forEach((opt,i)=>{
+   const b=document.createElement('button');
+   b.className='option';b.textContent=String.fromCharCode(65+i)+'. '+opt;
+   b.onclick=()=>answer(i,b);
+   box.appendChild(b);
+ });
+}
+function answer(i,btn){
+ if(answered)return;
+ answered=true;
+ const q=quiz[qi];
+ document.querySelectorAll('.option').forEach((b,idx)=>{
+   if(idx===q.a)b.classList.add('correct');
+ });
+ if(i===q.a){score++;btn.classList.add('correct')}
+ else btn.classList.add('wrong');
+ const f=document.createElement('div');
+ f.className='feedback';
+ f.textContent=i===q.a?'✅ Correct!':'❌ Not quite. The highlighted answer is correct.';
+ document.getElementById('quizBox').appendChild(f);
+ const next=document.createElement('button');
+ next.style.marginTop='15px';
+ next.textContent=qi===quiz.length-1?'🏁 See Result':'➡️ Next Question';
+ next.onclick=()=>{
+   if(qi===quiz.length-1) showResult();
+   else {qi++;answered=false;renderQuestion();}
+ };
+ document.getElementById('quizBox').appendChild(next);
+}
+function showResult(){
+ document.getElementById('bar').style.width='100%';
+ document.getElementById('quizInfo').textContent='Quiz complete!';
+ document.getElementById('quizBox').innerHTML=`<div class="score">🎉 You scored ${score} / ${quiz.length}</div>
+ <p style="text-align:center">${score===quiz.length?'Excellent! You remembered everything.':score>=7?'Very good! Review the flashcards once more.':'Good try! Go back to Learn and try the flashcards.'}</p>
+ <div style="text-align:center"><button onclick="startQuiz()">🔄 Try Again</button></div>`;
+}
+renderCards();
+</script>
+</body>
+</html>
