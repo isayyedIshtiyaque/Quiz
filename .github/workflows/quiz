@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Namaaz Learning Adventure</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f7fb;color:#1f2937}
+  .app{max-width:1050px;margin:auto;padding:20px}
+  header{background:linear-gradient(135deg,#243b53,#486581);color:white;border-radius:20px;padding:28px;margin-bottom:18px}
+  header h1{margin:0 0 8px;font-size:30px}
+  header p{margin:0;opacity:.9}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  button{border:0;border-radius:12px;padding:11px 16px;font-size:15px;cursor:pointer;background:#e5e7eb;color:#111827}
+  button:hover{filter:brightness(.97)}
+  .tab.active{background:#243b53;color:white}
+  .panel{display:none}
+  .panel.active{display:block}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+  .card{background:white;border-radius:16px;padding:18px;box-shadow:0 3px 12px rgba(0,0,0,.07)}
+  .card h3{margin-top:0;color:#243b53}
+  .badge{display:inline-block;background:#e8eef5;color:#243b53;padding:5px 9px;border-radius:20px;font-size:12px;font-weight:bold}
+  .highlight{background:#fff7d6;border-left:5px solid #e0a800;padding:13px;border-radius:10px;margin:12px 0}
+  .green{background:#eaf7ef;border-left:5px solid #29935b}
+  .red{background:#fff0f0;border-left:5px solid #d9534f}
+  .sequence{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .step{background:#eef2ff;border:1px solid #c7d2fe;padding:10px 13px;border-radius:10px}
+  .flashcard{min-height:190px;display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer}
+  .flashcard .back{display:none}
+  .flashcard.flipped .front{display:none}
+  .flashcard.flipped .back{display:block}
+  .quiz-q{font-size:19px;font-weight:bold;margin-bottom:15px}
+  .option{display:block;width:100%;text-align:left;margin:8px 0;background:#f3f4f6}
+  .option.correct{background:#d1fae5;border:2px solid #10b981}
+  .option.wrong{background:#fee2e2;border:2px solid #ef4444}
+  .feedback{margin-top:12px;font-weight:bold}
+  .progress{height:10px;background:#e5e7eb;border-radius:10px;overflow:hidden;margin:12px 0 20px}
+  .progress span{display:block;height:100%;width:0;background:#486581;transition:.3s}
+  .score{font-size:22px;font-weight:bold;text-align:center;padding:20px}
+  ul{line-height:1.7}
+  .small{font-size:13px;color:#6b7280}
+  .note{font-size:14px;background:#f8fafc;padding:12px;border-radius:10px}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <h1>🕌 Namaaz Learning Adventure</h1>
+  <p>Learn Tashahhud, Salaam, Tarteeb, Muwalaat and Qunoot — then test yourself!</p>
+</header>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('learn',this)">📚 Learn</button>
+  <button class="tab" onclick="showTab('cards',this)">🃏 Flashcards</button>
+  <button class="tab" onclick="showTab('quiz',this)">🎯 Quiz</button>
+  <button class="tab" onclick="showTab('challenge',this)">🏆 Challenge</button>
+</div>
+
+<section id="learn" class="panel active">
+  <div class="grid">
+    <div class="card">
+      <span class="badge">3. TASHAHHUD</span>
+      <h3>When do we say Tashahhud?</h3>
+      <ul>
+        <li>2nd Rakat of all Waajib and Mustahab Namaaz.</li>
+        <li>3rd Rakat of Maghrib.</li>
+        <li>4th Rakat of Zuhr, Asr and Isha.</li>
+        <li>Also necessary in Namaaz-e-Witr.</li>
+      </ul>
+      <div class="highlight">🧠 Remember: Tashahhud comes after the 2nd Sajdah while sitting.</div>
+    </div>
+
+    <div class="card">
+      <h3>🔢 Number of Tashahhud</h3>
+      <ul>
+        <li><b>1 Rakat:</b> Witr → 1 Tashahhud</li>
+        <li><b>2 Rakat:</b> Subh / Mustahab → 1</li>
+        <li><b>3 Rakat:</b> Maghrib → 2 (2nd & 3rd)</li>
+        <li><b>4 Rakat:</b> Zuhr / Asr / Isha → 2 (2nd & 4th)</li>
+      </ul>
+      <div class="note">Tashahhud should be recited in correct Arabic, consecutively and in the specified sequence.</div>
+    </div>
+
+    <div class="card">
+      <h3>🧩 Tashahhud Sequence</h3>
+      <div class="sequence">
+        <div class="step">1️⃣ Testify Allah</div>
+        <div class="step">2️⃣ Testify the Holy Prophet ﷺ</div>
+        <div class="step">3️⃣ Recite Salawaat</div>
+      </div>
+      <div class="highlight green">⭐ Salawaat is the Waajib part of Tashahhud.</div>
+      <div class="highlight red">If Tashahhud is forgotten, the Namaaz is not invalid according to the supplied lesson.</div>
+    </div>
+
+    <div class="card">
+      <span class="badge">4. SALAAM</span>
+      <h3>After the last Tashahhud</h3>
+      <ul>
+        <li>Say Salaam while sitting in a restful position.</li>
+        <li>The 1st Salaam is recommended before the 2nd or 3rd.</li>
+        <li>One of the 2nd and 3rd Salaams is obligatory.</li>
+        <li>If the 2nd Salaam is recited, the 3rd must also be recited.</li>
+        <li>Salaam should be in proper Arabic.</li>
+      </ul>
+      <div class="highlight">💡 Salaam is Waajib, but it is not a Rukn. Forgetting Salaam does not invalidate the Namaaz according to the lesson.</div>
+    </div>
+
+    <div class="card">
+      <span class="badge">5. TARTEEB</span>
+      <h3>What does Tarteeb mean?</h3>
+      <p><b>Tarteeb = Sequence / correct order.</b></p>
+      <p>Every action of Namaaz should be performed in its specified place and time.</p>
+      <div class="sequence">
+        <div class="step">Surah Al-Hamd</div>
+        <div class="step">→ Other Surah</div>
+        <div class="step">Ruku</div>
+        <div class="step">→ 2 Sajdahs</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="badge">6. MUWALAAT</span>
+      <h3>Close Succession</h3>
+      <p>Acts of Namaaz should follow one another normally without a long interruption.</p>
+      <ul>
+        <li>Ruku → Sujood → Tashahhud should flow one after another.</li>
+        <li>The recitations should also be connected in a normal manner.</li>
+        <li>If the delay becomes so long that it can no longer be considered Namaaz, the Namaaz is invalid.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <span class="badge">7. QUNOOT</span>
+      <h3>Quick Guide</h3>
+      <ul>
+        <li>Recommended before Ruku of the 2nd Rakat in Waajib and Mustahab Namaaz.</li>
+        <li>Witr: recommended before Ruku even though it is 1 Rakat.</li>
+        <li>Namaaz-e-Ayaat: 5 Qunoots.</li>
+        <li>Eid al-Fitr & Eid al-Azha: 5 in 1st Rakat and 4 in 2nd Rakat.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>🤲 Qunoot Hand Position</h3>
+      <ul>
+        <li>Hands in front of the face.</li>
+        <li>Palms facing the sky.</li>
+        <li>Hands and fingers kept close together.</li>
+        <li>Looking at the palms is Mustahab.</li>
+        <li>Any Zikr is sufficient; even saying “Subhanallah” once is sufficient.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card" style="margin-top:15px">
+    <h3>📖 Tashahhud Text</h3>
+    <p>The Arabic text in the supplied material is visibly scrambled/garbled. For teaching accuracy, this interactive lesson does <b>not</b> reconstruct the Arabic from the damaged text. Use the student's approved textbook/teacher for the exact Arabic wording and pronunciation.</p>
+  </div>
+</section>
+
+<section id="cards" class="panel">
+  <div class="card">
+    <h2>🃏 Tap a card to reveal the answer</h2>
+    <p class="small">Try answering in your head first.</p>
+  </div>
+  <div class="grid" id="flashcards"></div>
+</section>
+
+<section id="quiz" class="panel">
+  <div class="card">
+    <h2>🎯 Student Quiz</h2>
+    <p id="quizInfo"></p>
+    <div class="progress"><span id="bar"></span></div>
+    <div id="quizBox"></div>
+  </div>
+</section>
+
+<section id="challenge" class="panel">
+  <div class="card">
+    <h2>🏆 60-Second Challenge</h2>
+    <p>How quickly can you remember the important numbers?</p>
+    <div class="grid">
+      <div class="card"><h3>Maghrib</h3><p><b>2 Tashahhuds</b> → 2nd & 3rd Rakat</p></div>
+      <div class="card"><h3>Zuhr / Asr / Isha</h3><p><b>2 Tashahhuds</b> → 2nd & 4th Rakat</p></div>
+      <div class="card"><h3>Witr</h3><p><b>1 Tashahhud</b> + Qunoot recommended before Ruku</p></div>
+      <div class="card"><h3>Eid Namaaz</h3><p><b>5 + 4 Qunoots</b></p></div>
+      <div class="card"><h3>Ayaat</h3><p><b>5 Qunoots</b></p></div>
+    </div>
+    <button onclick="startQuiz()">🔄 Start Quiz Again</button>
+  </div>
+</section>
+</div>
+
+<script>
+const cards = [
+ ["Tashahhud","When is Tashahhud said?","After the 2nd Sajdah in the specified Rakats: 2nd of 2/4-Rakat Namaaz, 3rd of Maghrib, 4th of Zuhr/Asr/Isha."],
+ ["Witr","How many Tashahhuds in Witr?","One Tashahhud."],
+ ["Maghrib","How many Tashahhuds?","Two: one in the 2nd Rakat and one in the 3rd Rakat."],
+ ["Zuhr / Asr / Isha","How many Tashahhuds?","Two: one in the 2nd Rakat and one in the 4th Rakat."],
+ ["Tarteeb","What is Tarteeb?","Performing each action in the correct sequence and at its appropriate place and time."],
+ ["Muwalaat","What is Muwalaat?","Performing the acts and recitations of Namaaz in close succession without an interruption that breaks the sense of Namaaz."],
+ ["Qunoot","When is Qunoot recommended in ordinary Namaaz?","Before Ruku of the 2nd Rakat."],
+ ["Ayaat","How many Qunoots in Namaaz-e-Ayaat?","Five."],
+ ["Eid","How many Qunoots in Eid Namaaz?","Five in the 1st Rakat and four in the 2nd Rakat."],
+ ["Salawaat","What is the Waajib part of Tashahhud?","Salawaat."],
+ ["Salaam","Is Salaam Waajib?","Yes. It is Waajib but not a Rukn, according to the supplied lesson."],
+ ["Qunoot hands","How are the hands placed in Qunoot?","In front of the face, palms facing the sky, with hands and fingers close together."]
+];
+
+const quiz = [
+ {q:"How many Tashahhuds are there in Maghrib Namaaz?",o:["1","2","3","4"],a:1},
+ {q:"In Zuhr, where is Tashahhud recited?",o:["1st & 2nd","2nd & 4th","2nd & 3rd","3rd & 4th"],a:1},
+ {q:"What does Tarteeb mean?",o:["Standing","Correct sequence/order","Silence","Qunoot"],a:1},
+ {q:"What does Muwalaat mean?",o:["Close succession","Prostration","Testimony","Salutation"],a:0},
+ {q:"How many Qunoots are in Namaaz-e-Ayaat?",o:["2","3","4","5"],a:3},
+ {q:"How many Qunoots are in the first Rakat of Eid Namaaz?",o:["1","4","5","7"],a:2},
+ {q:"How many Qunoots are in the second Rakat of Eid Namaaz?",o:["2","3","4","5"],a:2},
+ {q:"Which is the Waajib part of Tashahhud?",o:["Qunoot","Ruku","Salawaat","Sajdah"],a:2},
+ {q:"If Tashahhud is forgotten, what does the supplied lesson say?",o:["Namaaz is automatically invalid","Namaaz is not invalid","Repeat every Rakat","Repeat Qunoot"],a:1},
+ {q:"In Witr, Qunoot is recommended...",o:["after Salaam","before Ruku","after Ruku","before Sajdah"],a:1}
+];
+
+function showTab(id,btn){
+ document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+ document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ btn.classList.add('active');
+ if(id==='cards') renderCards();
+ if(id==='quiz' && !quizStarted) startQuiz();
+}
+function renderCards(){
+ const box=document.getElementById('flashcards');
+ box.innerHTML='';
+ cards.forEach(c=>{
+   const el=document.createElement('div');
+   el.className='card flashcard';
+   el.innerHTML=`<div class="front"><span class="badge">${c[0]}</span><h3>${c[1]}</h3><p class="small">Tap to reveal</p></div>
+   <div class="back"><span class="badge">${c[0]}</span><h3>Answer</h3><p>${c[2]}</p><p class="small">Tap to flip back</p></div>`;
+   el.onclick=()=>el.classList.toggle('flipped');
+   box.appendChild(el);
+ });
+}
+let qi=0,score=0,answered=false,quizStarted=false;
+function startQuiz(){
+ qi=0;score=0;answered=false;quizStarted=true;renderQuestion();
+}
+function renderQuestion(){
+ const q=quiz[qi];
+ document.getElementById('quizInfo').textContent=`Question ${qi+1} of ${quiz.length} • Score: ${score}`;
+ document.getElementById('bar').style.width=((qi)/quiz.length*100)+'%';
+ const box=document.getElementById('quizBox');
+ box.innerHTML=`<div class="quiz-q">${q.q}</div>`;
+ q.o.forEach((opt,i)=>{
+   const b=document.createElement('button');
+   b.className='option';b.textContent=String.fromCharCode(65+i)+'. '+opt;
+   b.onclick=()=>answer(i,b);
+   box.appendChild(b);
+ });
+}
+function answer(i,btn){
+ if(answered)return;
+ answered=true;
+ const q=quiz[qi];
+ document.querySelectorAll('.option').forEach((b,idx)=>{
+   if(idx===q.a)b.classList.add('correct');
+ });
+ if(i===q.a){score++;btn.classList.add('correct')}
+ else btn.classList.add('wrong');
+ const f=document.createElement('div');
+ f.className='feedback';
+ f.textContent=i===q.a?'✅ Correct!':'❌ Not quite. The highlighted answer is correct.';
+ document.getElementById('quizBox').appendChild(f);
+ const next=document.createElement('button');
+ next.style.marginTop='15px';
+ next.textContent=qi===quiz.length-1?'🏁 See Result':'➡️ Next Question';
+ next.onclick=()=>{
+   if(qi===quiz.length-1) showResult();
+   else {qi++;answered=false;renderQuestion();}
+ };
+ document.getElementById('quizBox').appendChild(next);
+}
+function showResult(){
+ document.getElementById('bar').style.width='100%';
+ document.getElementById('quizInfo').textContent='Quiz complete!';
+ document.getElementById('quizBox').innerHTML=`<div class="score">🎉 You scored ${score} / ${quiz.length}</div>
+ <p style="text-align:center">${score===quiz.length?'Excellent! You remembered everything.':score>=7?'Very good! Review the flashcards once more.':'Good try! Go back to Learn and try the flashcards.'}</p>
+ <div style="text-align:center"><button onclick="startQuiz()">🔄 Try Again</button></div>`;
+}
+renderCards();
+</script>
+</body>
+</html>
